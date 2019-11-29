@@ -40,13 +40,13 @@ export class NotesApiService {
         let savedCreds = JSON.parse(savedCredsJson);
         let creds = {
           accessKeyId: savedCreds.Credentials.AccessKeyId,
-          secretAccessKey: savedCreds.Credentials.SecretAccessKey,
+          secretAccessKey: savedCreds.Credentials.SecretKey,
           sessionToken: savedCreds.Credentials.SessionToken
         };
 
         let signer = new RequestSigner(args, creds);
         let signed = signer.sign();
-        this.options.headers = signed.headers();
+        this.options.headers = signed.headers;
 
         delete this.options.headers.Host;
         this.options.headers.app_user_id = savedCreds.IdentityId;
